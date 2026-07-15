@@ -24,7 +24,7 @@ async function main() {
 }
 
 app.get("/",(req,res)=>{
-    res.send("root is working");
+    res.redirect("/chats");
 })
 
 //Going To Use (CRUD OPERATION)==>>
