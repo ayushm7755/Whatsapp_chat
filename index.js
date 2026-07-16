@@ -14,14 +14,24 @@ app.use(express.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 
 
-main().then(()=>{
+main()
+.then(()=>{
     console.log("connection successful");
+
+    app.listen(port , ()=>{
+        console.log(`server is listening to port no:${port}`);
+        
+    });
 })
-.catch(err => console.log(err));
-async function main() {
-    /* console.log(process.env.MONGO_URI); */
-    await mongoose.connect(process.env.MONGO_URI);
-}
+.catch((err)=>{
+    console.log(err);
+});
+    async function main() {
+        await mongoose.connect(process.env.MONGO_URI);
+    }
+
+    const port = process.env.PORT || 8080;
+
 
 app.get("/",(req,res)=>{
     res.redirect("/chats");
@@ -31,11 +41,16 @@ app.get("/",(req,res)=>{
 
 // Index Route(Read Operation)==>
 app.get("/chats", async(req,res)=>{
+    try{
     let chats = await chat.find();
-    console.log(chats);
     res.render("index.ejs",{chats});
-    
-})
+
+    }catch(err){
+        console.log(err);
+        res.send(err.message);
+    }
+   
+});
 
 // New chat(Create Operation)==>
 app.get("/chats/new",(req,res)=>{
@@ -98,8 +113,3 @@ app.delete("/chats/:id",async(req,res)=>{
     res.redirect("/chats");
 })
 
-const port = process.env.PORT || 8080;
-
-app.listen(port, () => {
-    console.log(`server is listening to port no: ${port}`);
-});
