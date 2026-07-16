@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const path = require("path");
 const chat = require("./models/chats.js");
 const methodOverride = require("method-override");
+const port = process.env.PORT || 8080;
 
 
 app.set("views",path.join(__dirname,"views"));
@@ -30,7 +31,6 @@ main()
         await mongoose.connect(process.env.MONGO_URI);
     }
 
-    const port = process.env.PORT || 8080;
 
 
 app.get("/",(req,res)=>{
