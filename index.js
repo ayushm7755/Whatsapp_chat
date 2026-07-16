@@ -16,6 +16,7 @@ app.use(methodOverride("_method"));
 
 const port = process.env.PORT || 8080;
 async function main() {
+    console.log("MONGO_URI =", process.env.MONGO_URI);
     await mongoose.connect(process.env.MONGO_URI);
 }
 
