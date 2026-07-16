@@ -5,7 +5,6 @@ const mongoose = require("mongoose");
 const path = require("path");
 const chat = require("./models/chats.js");
 const methodOverride = require("method-override");
-const port = process.env.PORT || 8080;
 
 
 app.set("views",path.join(__dirname,"views"));
@@ -14,6 +13,11 @@ app.use(express.static(path.join(__dirname,"public")));
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 
+
+const port = process.env.PORT || 8080;
+async function main() {
+    await mongoose.connect(process.env.MONGO_URI);
+}
 
 main()
 .then(()=>{
@@ -25,11 +29,10 @@ main()
     });
 })
 .catch((err)=>{
-    console.log(err);
+    console.log( "DB ERROR",err);
+    process.exit(1);
 });
-    async function main() {
-        await mongoose.connect(process.env.MONGO_URI);
-    }
+
 
 
 
