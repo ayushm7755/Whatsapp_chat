@@ -1,4 +1,4 @@
-# Whatsapp_chat
+# mini_chat (inspired from whatsapp)
 this is a chat web app ,by using MongoDB, CRUD.
 
 Features :
@@ -14,3 +14,6 @@ Tech Stack:
 4.Mongoose
 5.EJS
 6.Render
+
+# project_link
+https://whatsapp-chat-xtcz.onrender.com
